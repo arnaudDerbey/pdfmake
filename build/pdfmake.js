@@ -1,4 +1,4 @@
-/*! pdfmake v0.1.40, @license MIT, @link http://pdfmake.org */
+/*! pdfmake v0.1.38, @license MIT, @link http://pdfmake.org */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -1970,13 +1970,13 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.1' };
+var core = module.exports = { version: '2.5.7' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -2067,6 +2067,38 @@ $exports.store = store;
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(19)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(14);
+var IE8_DOM_DEFINE = __webpack_require__(90);
+var toPrimitive = __webpack_require__(57);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(5) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 var g;
@@ -2090,38 +2122,6 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(19)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(14);
-var IE8_DOM_DEFINE = __webpack_require__(90);
-var toPrimitive = __webpack_require__(57);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(6) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
 
 
 /***/ }),
@@ -2442,9 +2442,9 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(7);
+var dP = __webpack_require__(6);
 var createDesc = __webpack_require__(27);
-module.exports = __webpack_require__(6) ? function (object, key, value) {
+module.exports = __webpack_require__(5) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -3978,7 +3978,7 @@ module.exports = function (key) {
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(7).f;
+var def = __webpack_require__(6).f;
 var has = __webpack_require__(18);
 var TAG = __webpack_require__(4)('toStringTag');
 
@@ -3994,7 +3994,7 @@ module.exports = function (it, tag, stat) {
 var META = __webpack_require__(40)('meta');
 var isObject = __webpack_require__(10);
 var has = __webpack_require__(18);
-var setDesc = __webpack_require__(7).f;
+var setDesc = __webpack_require__(6).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
@@ -4782,7 +4782,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(132).setImmediate, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(132).setImmediate, __webpack_require__(7)))
 
 /***/ }),
 /* 46 */
@@ -6293,7 +6293,7 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
 
 /***/ }),
 /* 49 */
@@ -6699,7 +6699,7 @@ var has = __webpack_require__(18);
 var IE8_DOM_DEFINE = __webpack_require__(90);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(6) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(5) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -6961,7 +6961,7 @@ var global = __webpack_require__(11);
 var core = __webpack_require__(2);
 var LIBRARY = __webpack_require__(37);
 var wksExt = __webpack_require__(68);
-var defineProperty = __webpack_require__(7).f;
+var defineProperty = __webpack_require__(6).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
@@ -7397,25 +7397,24 @@ function measure(fontProvider, textArray, styleContextStack) {
 		var linkToPage = getStyleProperty(item, styleContextStack, 'linkToPage', null);
 		var noWrap = getStyleProperty(item, styleContextStack, 'noWrap', null);
 		var preserveLeadingSpaces = getStyleProperty(item, styleContextStack, 'preserveLeadingSpaces', false);
-		var preserveTrailingSpaces = getStyleProperty(item, styleContextStack, 'preserveTrailingSpaces', false);
-		var opacity = getStyleProperty(item, styleContextStack, 'opacity', 1);
 
 		var font = fontProvider.provideFont(fontName, bold, italics);
 
 		item.width = widthOfString(item.text, font, fontSize, characterSpacing, fontFeatures);
 		item.height = font.lineHeight(fontSize) * lineHeight;
 
+		var leadingSpaces = item.text.match(LEADING);
+
 		if (!item.leadingCut) {
 			item.leadingCut = 0;
 		}
 
-		var leadingSpaces;
-		if (!preserveLeadingSpaces && (leadingSpaces = item.text.match(LEADING))) {
+		if (leadingSpaces && !preserveLeadingSpaces) {
 			item.leadingCut += widthOfString(leadingSpaces[0], font, fontSize, characterSpacing, fontFeatures);
 		}
 
-		var trailingSpaces;
-		if (!preserveTrailingSpaces && (trailingSpaces = item.text.match(TRAILING))) {
+		var trailingSpaces = item.text.match(TRAILING);
+		if (trailingSpaces) {
 			item.trailingCut = widthOfString(trailingSpaces[0], font, fontSize, characterSpacing, fontFeatures);
 		} else {
 			item.trailingCut = 0;
@@ -7434,7 +7433,6 @@ function measure(fontProvider, textArray, styleContextStack) {
 		item.link = link;
 		item.linkToPage = linkToPage;
 		item.noWrap = noWrap;
-		item.opacity = opacity;
 	});
 
 	return normalized;
@@ -8625,7 +8623,7 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
 
 /***/ }),
 /* 79 */
@@ -9546,7 +9544,7 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 84 */
@@ -9931,7 +9929,7 @@ module.exports = [["0","\u0000",127],["a140","　，、。．‧；：？！︰�
 /* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(6) && !__webpack_require__(19)(function () {
+module.exports = !__webpack_require__(5) && !__webpack_require__(19)(function () {
   return Object.defineProperty(__webpack_require__(91)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -9979,11 +9977,11 @@ module.exports = __webpack_require__(13);
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(7);
+var dP = __webpack_require__(6);
 var anObject = __webpack_require__(14);
 var getKeys = __webpack_require__(29);
 
-module.exports = __webpack_require__(6) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(5) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -10114,7 +10112,7 @@ exports.default = function () {
 
 "use strict";
 
-var dP = __webpack_require__(7).f;
+var dP = __webpack_require__(6).f;
 var create = __webpack_require__(38);
 var redefineAll = __webpack_require__(104);
 var ctx = __webpack_require__(20);
@@ -10123,7 +10121,7 @@ var forOf = __webpack_require__(43);
 var $iterDefine = __webpack_require__(60);
 var step = __webpack_require__(93);
 var setSpecies = __webpack_require__(217);
-var DESCRIPTORS = __webpack_require__(6);
+var DESCRIPTORS = __webpack_require__(5);
 var fastKey = __webpack_require__(42).fastKey;
 var validate = __webpack_require__(73);
 var SIZE = DESCRIPTORS ? '_s' : 'size';
@@ -10331,9 +10329,9 @@ var forOf = __webpack_require__(43);
 var anInstance = __webpack_require__(105);
 var isObject = __webpack_require__(10);
 var setToStringTag = __webpack_require__(41);
-var dP = __webpack_require__(7).f;
+var dP = __webpack_require__(6).f;
 var each = __webpack_require__(218)(0);
-var DESCRIPTORS = __webpack_require__(6);
+var DESCRIPTORS = __webpack_require__(5);
 
 module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
   var Base = global[NAME];
@@ -12228,23 +12226,23 @@ var isNull = __webpack_require__(0).isNull;
  * @param {Object} optional default style definition
  */
 function StyleContextStack(styleDictionary, defaultStyle) {
-	this.defaultStyle = defaultStyle || {};
-	this.styleDictionary = styleDictionary;
-	this.styleOverrides = [];
+  this.defaultStyle = defaultStyle || {};
+  this.styleDictionary = styleDictionary;
+  this.styleOverrides = [];
 }
 
 /**
  * Creates cloned version of current stack
  * @return {StyleContextStack} current stack snapshot
  */
-StyleContextStack.prototype.clone = function () {
-	var stack = new StyleContextStack(this.styleDictionary, this.defaultStyle);
+StyleContextStack.prototype.clone = function() {
+  var stack = new StyleContextStack(this.styleDictionary, this.defaultStyle);
 
-	this.styleOverrides.forEach(function (item) {
-		stack.styleOverrides.push(item);
-	});
+  this.styleOverrides.forEach(function(item) {
+    stack.styleOverrides.push(item);
+  });
 
-	return stack;
+  return stack;
 };
 
 /**
@@ -12253,8 +12251,8 @@ StyleContextStack.prototype.clone = function () {
  * @param {String|Object} styleNameOrOverride style-name (referring to styleDictionary) or
  *                                            a new dictionary defining overriding properties
  */
-StyleContextStack.prototype.push = function (styleNameOrOverride) {
-	this.styleOverrides.push(styleNameOrOverride);
+StyleContextStack.prototype.push = function(styleNameOrOverride) {
+  this.styleOverrides.push(styleNameOrOverride);
 };
 
 /**
@@ -12263,12 +12261,12 @@ StyleContextStack.prototype.push = function (styleNameOrOverride) {
  * @param {Number} howMany - optional number of elements to be popped (if not specified,
  *                           one element will be removed from the stack)
  */
-StyleContextStack.prototype.pop = function (howMany) {
-	howMany = howMany || 1;
+StyleContextStack.prototype.pop = function(howMany) {
+  howMany = howMany || 1;
 
-	while (howMany-- > 0) {
-		this.styleOverrides.pop();
-	}
+  while (howMany-- > 0) {
+    this.styleOverrides.pop();
+  }
 };
 
 /**
@@ -12279,66 +12277,68 @@ StyleContextStack.prototype.pop = function (howMany) {
  * @param {Object} item - an object with optional style property and/or style overrides
  * @return the number of items pushed onto the stack
  */
-StyleContextStack.prototype.autopush = function (item) {
-	if (isString(item)) {
-		return 0;
-	}
+StyleContextStack.prototype.autopush = function(item) {
+  if (isString(item)) {
+    return 0;
+  }
 
-	var styleNames = [];
+  var styleNames = [];
 
-	if (item.style) {
-		if (isArray(item.style)) {
-			styleNames = item.style;
-		} else {
-			styleNames = [item.style];
-		}
-	}
+  if (item.style) {
+    if (isArray(item.style)) {
+      styleNames = item.style;
+    } else {
+      styleNames = [item.style];
+    }
+  }
 
-	for (var i = 0, l = styleNames.length; i < l; i++) {
-		this.push(styleNames[i]);
-	}
+  for (var i = 0, l = styleNames.length; i < l; i++) {
+    this.push(styleNames[i]);
+  }
 
-	var styleProperties = [
-		'font',
-		'fontSize',
-		'fontFeatures',
-		'bold',
-		'italics',
-		'alignment',
-		'color',
-		'columnGap',
-		'fillColor',
-		'decoration',
-		'decorationStyle',
-		'decorationColor',
-		'background',
-		'lineHeight',
-		'characterSpacing',
-		'noWrap',
-		'markerColor',
-		'leadingIndent'
-			//'tableCellPadding'
-			// 'cellBorder',
-			// 'headerCellBorder',
-			// 'oddRowCellBorder',
-			// 'evenRowCellBorder',
-			// 'tableBorder'
-	];
-	var styleOverrideObject = {};
-	var pushStyleOverrideObject = false;
+  var styleProperties = [
+    "font",
+    "fontSize",
+    "fontFeatures",
+    "bold",
+    "italics",
+    "alignment",
+    "color",
+    "columnGap",
+    "fillColor",
+    "decoration",
+    "decorationStyle",
+    "decorationColor",
+    "background",
+    "lineHeight",
+    "characterSpacing",
+    "noWrap",
+    "markerColor",
+    "leadingIndent",
+    "sup",
+    "sub"
+    //'tableCellPadding'
+    // 'cellBorder',
+    // 'headerCellBorder',
+    // 'oddRowCellBorder',
+    // 'evenRowCellBorder',
+    // 'tableBorder'
+  ];
+  var styleOverrideObject = {};
+  var pushStyleOverrideObject = false;
 
-	styleProperties.forEach(function (key) {
-		if (!isUndefined(item[key]) && !isNull(item[key])) {
-			styleOverrideObject[key] = item[key];
-			pushStyleOverrideObject = true;
-		}
-	});
+  styleProperties.forEach(function(key) {
+    if (!isUndefined(item[key]) && !isNull(item[key])) {
+      styleOverrideObject[key] = item[key];
+      pushStyleOverrideObject = true;
+    }
+  });
 
-	if (pushStyleOverrideObject) {
-		this.push(styleOverrideObject);
-	}
+  if (pushStyleOverrideObject) {
+    this.push(styleOverrideObject);
+  }
 
-	return styleNames.length + (pushStyleOverrideObject ? 1 : 0);
+  return styleNames.length + (pushStyleOverrideObject ? 1 : 0);
 };
 
 /**
@@ -12349,15 +12349,15 @@ StyleContextStack.prototype.autopush = function (item) {
  * @param  {Function} function to be called between autopush and pop
  * @return {Object} value returned by callback
  */
-StyleContextStack.prototype.auto = function (item, callback) {
-	var pushedItems = this.autopush(item);
-	var result = callback();
+StyleContextStack.prototype.auto = function(item, callback) {
+  var pushedItems = this.autopush(item);
+  var result = callback();
 
-	if (pushedItems > 0) {
-		this.pop(pushedItems);
-	}
+  if (pushedItems > 0) {
+    this.pop(pushedItems);
+  }
 
-	return result;
+  return result;
 };
 
 /**
@@ -12366,25 +12366,25 @@ StyleContextStack.prototype.auto = function (item, callback) {
  * @param {String} property - property name
  * @return property value or null if not found
  */
-StyleContextStack.prototype.getProperty = function (property) {
-	if (this.styleOverrides) {
-		for (var i = this.styleOverrides.length - 1; i >= 0; i--) {
-			var item = this.styleOverrides[i];
+StyleContextStack.prototype.getProperty = function(property) {
+  if (this.styleOverrides) {
+    for (var i = this.styleOverrides.length - 1; i >= 0; i--) {
+      var item = this.styleOverrides[i];
 
-			if (isString(item)) {
-				// named-style-override
-				var style = this.styleDictionary[item];
-				if (style && !isUndefined(style[property]) && !isNull(style[property])) {
-					return style[property];
-				}
-			} else if (!isUndefined(item[property]) && !isNull(item[property])) {
-				// style-overrides-object
-				return item[property];
-			}
-		}
-	}
+      if (isString(item)) {
+        // named-style-override
+        var style = this.styleDictionary[item];
+        if (style && !isUndefined(style[property]) && !isNull(style[property])) {
+          return style[property];
+        }
+      } else if (!isUndefined(item[property]) && !isNull(item[property])) {
+        // style-overrides-object
+        return item[property];
+      }
+    }
+  }
 
-	return this.defaultStyle && this.defaultStyle[property];
+  return this.defaultStyle && this.defaultStyle[property];
 };
 
 module.exports = StyleContextStack;
@@ -12805,7 +12805,7 @@ module.exports = Line;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports = global["pdfMake"] = __webpack_require__(123);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 123 */
@@ -12996,20 +12996,15 @@ Document.prototype.getBuffer = function (cb, options) {
 };
 
 module.exports = {
-	createPdf: function (docDefinition, tableLayouts, fonts, vfs) {
+	createPdf: function (docDefinition) {
 		if (!canCreatePdf()) {
 			throw 'Your browser does not provide the level of support needed';
 		}
-		return new Document(
-			docDefinition,
-			tableLayouts || global.pdfMake.tableLayouts,
-			fonts || global.pdfMake.fonts,
-			vfs || global.pdfMake.vfs
-		);
+		return new Document(docDefinition, global.pdfMake.tableLayouts, global.pdfMake.fonts, global.pdfMake.vfs);
 	}
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer, __webpack_require__(7)))
 
 /***/ }),
 /* 124 */
@@ -13302,7 +13297,7 @@ var isUndefined = __webpack_require__(0).isUndefined;
  * var printer = new PdfPrinter(fontDescriptors);
  */
 function PdfPrinter(fontDescriptors) {
-	this.fontDescriptors = fontDescriptors;
+  this.fontDescriptors = fontDescriptors;
 }
 
 /**
@@ -13348,481 +13343,531 @@ function PdfPrinter(fontDescriptors) {
  *
  * @return {Object} a pdfKit document object which can be saved or encode to data-url
  */
-PdfPrinter.prototype.createPdfKitDocument = function (docDefinition, options) {
-	options = options || {};
+PdfPrinter.prototype.createPdfKitDocument = function(docDefinition, options) {
+  options = options || {};
 
-	var pageSize = fixPageSize(docDefinition.pageSize, docDefinition.pageOrientation);
-	var compressPdf = isBoolean(docDefinition.compress) ? docDefinition.compress : true;
-	var bufferPages = options.bufferPages || false;
+  var pageSize = fixPageSize(docDefinition.pageSize, docDefinition.pageOrientation);
+  var compressPdf = isBoolean(docDefinition.compress) ? docDefinition.compress : true;
+  var bufferPages = options.bufferPages || false;
 
-	this.pdfKitDoc = PdfKitEngine.createPdfDocument({size: [pageSize.width, pageSize.height], bufferPages: bufferPages, autoFirstPage: false, compress: compressPdf});
-	setMetadata(docDefinition, this.pdfKitDoc);
+  this.pdfKitDoc = PdfKitEngine.createPdfDocument({
+    size: [pageSize.width, pageSize.height],
+    bufferPages: bufferPages,
+    autoFirstPage: false,
+    compress: compressPdf
+  });
+  setMetadata(docDefinition, this.pdfKitDoc);
 
-	this.fontProvider = new FontProvider(this.fontDescriptors, this.pdfKitDoc);
+  this.fontProvider = new FontProvider(this.fontDescriptors, this.pdfKitDoc);
 
-	docDefinition.images = docDefinition.images || {};
+  docDefinition.images = docDefinition.images || {};
 
-	var builder = new LayoutBuilder(pageSize, fixPageMargins(docDefinition.pageMargins || 40), new ImageMeasure(this.pdfKitDoc, docDefinition.images));
+  var builder = new LayoutBuilder(
+    pageSize,
+    fixPageMargins(docDefinition.pageMargins || 40),
+    new ImageMeasure(this.pdfKitDoc, docDefinition.images)
+  );
 
-	registerDefaultTableLayouts(builder);
-	if (options.tableLayouts) {
-		builder.registerTableLayouts(options.tableLayouts);
-	}
+  registerDefaultTableLayouts(builder);
+  if (options.tableLayouts) {
+    builder.registerTableLayouts(options.tableLayouts);
+  }
 
-	var pages = builder.layoutDocument(docDefinition.content, this.fontProvider, docDefinition.styles || {}, docDefinition.defaultStyle || {fontSize: 12, font: 'Roboto'}, docDefinition.background, docDefinition.header, docDefinition.footer, docDefinition.images, docDefinition.watermark, docDefinition.pageBreakBefore);
-	var maxNumberPages = docDefinition.maxPagesNumber || -1;
-	if (isNumber(maxNumberPages) && maxNumberPages > -1) {
-		pages = pages.slice(0, maxNumberPages);
-	}
+  var pages = builder.layoutDocument(
+    docDefinition.content,
+    this.fontProvider,
+    docDefinition.styles || {},
+    docDefinition.defaultStyle || { fontSize: 12, font: "Roboto" },
+    docDefinition.background,
+    docDefinition.header,
+    docDefinition.footer,
+    docDefinition.images,
+    docDefinition.watermark,
+    docDefinition.pageBreakBefore
+  );
+  var maxNumberPages = docDefinition.maxPagesNumber || -1;
+  if (isNumber(maxNumberPages) && maxNumberPages > -1) {
+    pages = pages.slice(0, maxNumberPages);
+  }
 
-	// if pageSize.height is set to Infinity, calculate the actual height of the page that
-	// was laid out using the height of each of the items in the page.
-	if (pageSize.height === Infinity) {
-		var pageHeight = calculatePageHeight(pages, docDefinition.pageMargins);
-		this.pdfKitDoc.options.size = [pageSize.width, pageHeight];
-	}
+  // if pageSize.height is set to Infinity, calculate the actual height of the page that
+  // was laid out using the height of each of the items in the page.
+  if (pageSize.height === Infinity) {
+    var pageHeight = calculatePageHeight(pages, docDefinition.pageMargins);
+    this.pdfKitDoc.options.size = [pageSize.width, pageHeight];
+  }
 
-	renderPages(pages, this.fontProvider, this.pdfKitDoc, options.progressCallback);
+  renderPages(pages, this.fontProvider, this.pdfKitDoc, options.progressCallback);
 
-	if (options.autoPrint) {
-		var printActionRef = this.pdfKitDoc.ref({
-			Type: 'Action',
-			S: 'Named',
-			N: 'Print'
-		});
-		this.pdfKitDoc._root.data.OpenAction = printActionRef;
-		printActionRef.end();
-	}
-	return this.pdfKitDoc;
+  if (options.autoPrint) {
+    var printActionRef = this.pdfKitDoc.ref({
+      Type: "Action",
+      S: "Named",
+      N: "Print"
+    });
+    this.pdfKitDoc._root.data.OpenAction = printActionRef;
+    printActionRef.end();
+  }
+  return this.pdfKitDoc;
 };
 
 function setMetadata(docDefinition, pdfKitDoc) {
-	// PDF standard has these properties reserved: Title, Author, Subject, Keywords,
-	// Creator, Producer, CreationDate, ModDate, Trapped.
-	// To keep the pdfmake api consistent, the info field are defined lowercase.
-	// Custom properties don't contain a space.
-	function standardizePropertyKey(key) {
-		var standardProperties = ['Title', 'Author', 'Subject', 'Keywords',
-			'Creator', 'Producer', 'CreationDate', 'ModDate', 'Trapped'];
-		var standardizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-		if (standardProperties.indexOf(standardizedKey) !== -1) {
-			return standardizedKey;
-		}
+  // PDF standard has these properties reserved: Title, Author, Subject, Keywords,
+  // Creator, Producer, CreationDate, ModDate, Trapped.
+  // To keep the pdfmake api consistent, the info field are defined lowercase.
+  // Custom properties don't contain a space.
+  function standardizePropertyKey(key) {
+    var standardProperties = [
+      "Title",
+      "Author",
+      "Subject",
+      "Keywords",
+      "Creator",
+      "Producer",
+      "CreationDate",
+      "ModDate",
+      "Trapped"
+    ];
+    var standardizedKey = key.charAt(0).toUpperCase() + key.slice(1);
+    if (standardProperties.indexOf(standardizedKey) !== -1) {
+      return standardizedKey;
+    }
 
-		return key.replace(/\s+/g, '');
-	}
+    return key.replace(/\s+/g, "");
+  }
 
-	pdfKitDoc.info.Producer = 'pdfmake';
-	pdfKitDoc.info.Creator = 'pdfmake';
+  pdfKitDoc.info.Producer = "pdfmake";
+  pdfKitDoc.info.Creator = "pdfmake";
 
-	if (docDefinition.info) {
-		for (var key in docDefinition.info) {
-			var value = docDefinition.info[key];
-			if (value) {
-				key = standardizePropertyKey(key);
-				pdfKitDoc.info[key] = value;
-			}
-		}
-	}
+  if (docDefinition.info) {
+    for (var key in docDefinition.info) {
+      var value = docDefinition.info[key];
+      if (value) {
+        key = standardizePropertyKey(key);
+        pdfKitDoc.info[key] = value;
+      }
+    }
+  }
 }
 
 function calculatePageHeight(pages, margins) {
-	function getItemHeight(item) {
-		if (isFunction(item.item.getHeight)) {
-			return item.item.getHeight();
-		} else if (item.item._height) {
-			return item.item._height;
-		} else {
-			// TODO: add support for next item types
-			return 0;
-		}
-	}
+  function getItemHeight(item) {
+    if (isFunction(item.item.getHeight)) {
+      return item.item.getHeight();
+    } else if (item.item._height) {
+      return item.item._height;
+    } else {
+      // TODO: add support for next item types
+      return 0;
+    }
+  }
 
-	function getBottomPosition(item) {
-		var top = item.item.y;
-		var height = getItemHeight(item);
-		return top + height;
-	}
+  function getBottomPosition(item) {
+    var top = item.item.y;
+    var height = getItemHeight(item);
+    return top + height;
+  }
 
-	var fixedMargins = fixPageMargins(margins || 40);
-	var height = fixedMargins.top;
+  var fixedMargins = fixPageMargins(margins || 40);
+  var height = fixedMargins.top;
 
-	pages.forEach(function (page) {
-		page.items.forEach(function (item) {
-			var bottomPosition = getBottomPosition(item);
-			if (bottomPosition > height) {
-				height = bottomPosition;
-			}
-		});
-	});
+  pages.forEach(function(page) {
+    page.items.forEach(function(item) {
+      var bottomPosition = getBottomPosition(item);
+      if (bottomPosition > height) {
+        height = bottomPosition;
+      }
+    });
+  });
 
-	height += fixedMargins.bottom;
+  height += fixedMargins.bottom;
 
-	return height;
+  return height;
 }
 
 function fixPageSize(pageSize, pageOrientation) {
-	function isNeedSwapPageSizes(pageOrientation) {
-		if (isString(pageOrientation)) {
-			pageOrientation = pageOrientation.toLowerCase();
-			return ((pageOrientation === 'portrait') && (size.width > size.height)) ||
-				((pageOrientation === 'landscape') && (size.width < size.height));
-		}
-		return false;
-	}
+  function isNeedSwapPageSizes(pageOrientation) {
+    if (isString(pageOrientation)) {
+      pageOrientation = pageOrientation.toLowerCase();
+      return (
+        (pageOrientation === "portrait" && size.width > size.height) ||
+        (pageOrientation === "landscape" && size.width < size.height)
+      );
+    }
+    return false;
+  }
 
-	// if pageSize.height is set to auto, set the height to infinity so there are no page breaks.
-	if (pageSize && pageSize.height === 'auto') {
-		pageSize.height = Infinity;
-	}
+  // if pageSize.height is set to auto, set the height to infinity so there are no page breaks.
+  if (pageSize && pageSize.height === "auto") {
+    pageSize.height = Infinity;
+  }
 
-	var size = pageSize2widthAndHeight(pageSize || 'A4');
-	if (isNeedSwapPageSizes(pageOrientation)) { // swap page sizes
-		size = {width: size.height, height: size.width};
-	}
-	size.orientation = size.width > size.height ? 'landscape' : 'portrait';
-	return size;
+  var size = pageSize2widthAndHeight(pageSize || "A4");
+  if (isNeedSwapPageSizes(pageOrientation)) {
+    // swap page sizes
+    size = { width: size.height, height: size.width };
+  }
+  size.orientation = size.width > size.height ? "landscape" : "portrait";
+  return size;
 }
 
 function fixPageMargins(margin) {
-	if (!margin) {
-		return null;
-	}
+  if (!margin) {
+    return null;
+  }
 
-	if (isNumber(margin)) {
-		margin = {left: margin, right: margin, top: margin, bottom: margin};
-	} else if (isArray(margin)) {
-		if (margin.length === 2) {
-			margin = {left: margin[0], top: margin[1], right: margin[0], bottom: margin[1]};
-		} else if (margin.length === 4) {
-			margin = {left: margin[0], top: margin[1], right: margin[2], bottom: margin[3]};
-		} else {
-			throw 'Invalid pageMargins definition';
-		}
-	}
+  if (isNumber(margin)) {
+    margin = { left: margin, right: margin, top: margin, bottom: margin };
+  } else if (isArray(margin)) {
+    if (margin.length === 2) {
+      margin = { left: margin[0], top: margin[1], right: margin[0], bottom: margin[1] };
+    } else if (margin.length === 4) {
+      margin = { left: margin[0], top: margin[1], right: margin[2], bottom: margin[3] };
+    } else {
+      throw "Invalid pageMargins definition";
+    }
+  }
 
-	return margin;
+  return margin;
 }
 
 function registerDefaultTableLayouts(layoutBuilder) {
-	layoutBuilder.registerTableLayouts({
-		noBorders: {
-			hLineWidth: function (i) {
-				return 0;
-			},
-			vLineWidth: function (i) {
-				return 0;
-			},
-			paddingLeft: function (i) {
-				return i && 4 || 0;
-			},
-			paddingRight: function (i, node) {
-				return (i < node.table.widths.length - 1) ? 4 : 0;
-			}
-		},
-		headerLineOnly: {
-			hLineWidth: function (i, node) {
-				if (i === 0 || i === node.table.body.length) {
-					return 0;
-				}
-				return (i === node.table.headerRows) ? 2 : 0;
-			},
-			vLineWidth: function (i) {
-				return 0;
-			},
-			paddingLeft: function (i) {
-				return i === 0 ? 0 : 8;
-			},
-			paddingRight: function (i, node) {
-				return (i === node.table.widths.length - 1) ? 0 : 8;
-			}
-		},
-		lightHorizontalLines: {
-			hLineWidth: function (i, node) {
-				if (i === 0 || i === node.table.body.length) {
-					return 0;
-				}
-				return (i === node.table.headerRows) ? 2 : 1;
-			},
-			vLineWidth: function (i) {
-				return 0;
-			},
-			hLineColor: function (i) {
-				return i === 1 ? 'black' : '#aaa';
-			},
-			paddingLeft: function (i) {
-				return i === 0 ? 0 : 8;
-			},
-			paddingRight: function (i, node) {
-				return (i === node.table.widths.length - 1) ? 0 : 8;
-			}
-		}
-	});
+  layoutBuilder.registerTableLayouts({
+    noBorders: {
+      hLineWidth: function(i) {
+        return 0;
+      },
+      vLineWidth: function(i) {
+        return 0;
+      },
+      paddingLeft: function(i) {
+        return (i && 4) || 0;
+      },
+      paddingRight: function(i, node) {
+        return i < node.table.widths.length - 1 ? 4 : 0;
+      }
+    },
+    headerLineOnly: {
+      hLineWidth: function(i, node) {
+        if (i === 0 || i === node.table.body.length) {
+          return 0;
+        }
+        return i === node.table.headerRows ? 2 : 0;
+      },
+      vLineWidth: function(i) {
+        return 0;
+      },
+      paddingLeft: function(i) {
+        return i === 0 ? 0 : 8;
+      },
+      paddingRight: function(i, node) {
+        return i === node.table.widths.length - 1 ? 0 : 8;
+      }
+    },
+    lightHorizontalLines: {
+      hLineWidth: function(i, node) {
+        if (i === 0 || i === node.table.body.length) {
+          return 0;
+        }
+        return i === node.table.headerRows ? 2 : 1;
+      },
+      vLineWidth: function(i) {
+        return 0;
+      },
+      hLineColor: function(i) {
+        return i === 1 ? "black" : "#aaa";
+      },
+      paddingLeft: function(i) {
+        return i === 0 ? 0 : 8;
+      },
+      paddingRight: function(i, node) {
+        return i === node.table.widths.length - 1 ? 0 : 8;
+      }
+    }
+  });
 }
 
 function pageSize2widthAndHeight(pageSize) {
-	if (isString(pageSize)) {
-		var size = sizes[pageSize.toUpperCase()];
-		if (!size) {
-			throw 'Page size ' + pageSize + ' not recognized';
-		}
-		return {width: size[0], height: size[1]};
-	}
+  if (isString(pageSize)) {
+    var size = sizes[pageSize.toUpperCase()];
+    if (!size) {
+      throw "Page size " + pageSize + " not recognized";
+    }
+    return { width: size[0], height: size[1] };
+  }
 
-	return pageSize;
+  return pageSize;
 }
 
 function updatePageOrientationInOptions(currentPage, pdfKitDoc) {
-	var previousPageOrientation = pdfKitDoc.options.size[0] > pdfKitDoc.options.size[1] ? 'landscape' : 'portrait';
+  var previousPageOrientation = pdfKitDoc.options.size[0] > pdfKitDoc.options.size[1] ? "landscape" : "portrait";
 
-	if (currentPage.pageSize.orientation !== previousPageOrientation) {
-		var width = pdfKitDoc.options.size[0];
-		var height = pdfKitDoc.options.size[1];
-		pdfKitDoc.options.size = [height, width];
-	}
+  if (currentPage.pageSize.orientation !== previousPageOrientation) {
+    var width = pdfKitDoc.options.size[0];
+    var height = pdfKitDoc.options.size[1];
+    pdfKitDoc.options.size = [height, width];
+  }
 }
 
 function renderPages(pages, fontProvider, pdfKitDoc, progressCallback) {
-	pdfKitDoc._pdfMakePages = pages;
-	pdfKitDoc.addPage();
+  pdfKitDoc._pdfMakePages = pages;
+  pdfKitDoc.addPage();
 
-	var totalItems = 0;
-	if (progressCallback) {
-		pages.forEach(function (page) {
-			totalItems += page.items.length;
-		});
-	}
+  var totalItems = 0;
+  if (progressCallback) {
+    pages.forEach(function(page) {
+      totalItems += page.items.length;
+    });
+  }
 
-	var renderedItems = 0;
-	progressCallback = progressCallback || function () {};
+  var renderedItems = 0;
+  progressCallback = progressCallback || function() {};
 
-	for (var i = 0; i < pages.length; i++) {
-		if (i > 0) {
-			updatePageOrientationInOptions(pages[i], pdfKitDoc);
-			pdfKitDoc.addPage(pdfKitDoc.options);
-		}
+  for (var i = 0; i < pages.length; i++) {
+    if (i > 0) {
+      updatePageOrientationInOptions(pages[i], pdfKitDoc);
+      pdfKitDoc.addPage(pdfKitDoc.options);
+    }
 
-		var page = pages[i];
-		for (var ii = 0, il = page.items.length; ii < il; ii++) {
-			var item = page.items[ii];
-			switch (item.type) {
-				case 'vector':
-					renderVector(item.item, pdfKitDoc);
-					break;
-				case 'line':
-					renderLine(item.item, item.item.x, item.item.y, pdfKitDoc);
-					break;
-				case 'image':
-					renderImage(item.item, item.item.x, item.item.y, pdfKitDoc);
-					break;
-				case 'beginClip':
-					beginClip(item.item, pdfKitDoc);
-					break;
-				case 'endClip':
-					endClip(pdfKitDoc);
-					break;
-			}
-			renderedItems++;
-			progressCallback(renderedItems / totalItems);
-		}
-		if (page.watermark) {
-			renderWatermark(page, pdfKitDoc);
-		}
-	}
+    var page = pages[i];
+    for (var ii = 0, il = page.items.length; ii < il; ii++) {
+      var item = page.items[ii];
+      switch (item.type) {
+        case "vector":
+          renderVector(item.item, pdfKitDoc);
+          break;
+        case "line":
+          renderLine(item.item, item.item.x, item.item.y, pdfKitDoc);
+          break;
+        case "image":
+          renderImage(item.item, item.item.x, item.item.y, pdfKitDoc);
+          break;
+        case "beginClip":
+          beginClip(item.item, pdfKitDoc);
+          break;
+        case "endClip":
+          endClip(pdfKitDoc);
+          break;
+      }
+      renderedItems++;
+      progressCallback(renderedItems / totalItems);
+    }
+    if (page.watermark) {
+      renderWatermark(page, pdfKitDoc);
+    }
+  }
 }
 
 function renderLine(line, x, y, pdfKitDoc) {
-	function preparePageNodeRefLine(_pageNodeRef, inline) {
-		var newWidth;
-		var diffWidth;
-		var textTools = new TextTools(null);
+  function preparePageNodeRefLine(_pageNodeRef, inline) {
+    var newWidth;
+    var diffWidth;
+    var textTools = new TextTools(null);
 
-		if (isUndefined(_pageNodeRef.positions)) {
-			throw 'Page reference id not found';
-		}
+    if (isUndefined(_pageNodeRef.positions)) {
+      throw "Page reference id not found";
+    }
 
-		var pageNumber = _pageNodeRef.positions[0].pageNumber.toString();
+    var pageNumber = _pageNodeRef.positions[0].pageNumber.toString();
 
-		inline.text = pageNumber;
-		inline.linkToPage = pageNumber;
-		newWidth = textTools.widthOfString(inline.text, inline.font, inline.fontSize, inline.characterSpacing, inline.fontFeatures);
-		diffWidth = inline.width - newWidth;
-		inline.width = newWidth;
+    inline.text = pageNumber;
+    inline.linkToPage = pageNumber;
+    newWidth = textTools.widthOfString(
+      inline.text,
+      inline.font,
+      inline.fontSize,
+      inline.characterSpacing,
+      inline.fontFeatures
+    );
+    diffWidth = inline.width - newWidth;
+    inline.width = newWidth;
 
-		switch (inline.alignment) {
-			case 'right':
-				inline.x += diffWidth;
-				break;
-			case 'center':
-				inline.x += diffWidth / 2;
-				break;
-		}
-	}
+    switch (inline.alignment) {
+      case "right":
+        inline.x += diffWidth;
+        break;
+      case "center":
+        inline.x += diffWidth / 2;
+        break;
+    }
+  }
 
-	if (line._pageNodeRef) {
-		preparePageNodeRefLine(line._pageNodeRef, line.inlines[0]);
-	}
+  if (line._pageNodeRef) {
+    preparePageNodeRefLine(line._pageNodeRef, line.inlines[0]);
+  }
 
-	x = x || 0;
-	y = y || 0;
+  x = x || 0;
+  y = y || 0;
 
-	var lineHeight = line.getHeight();
-	var ascenderHeight = line.getAscenderHeight();
-	var descent = lineHeight - ascenderHeight;
+  var lineHeight = line.getHeight();
+  var ascenderHeight = line.getAscenderHeight();
+  var descent = lineHeight - ascenderHeight;
 
-	textDecorator.drawBackground(line, x, y, pdfKitDoc);
+  textDecorator.drawBackground(line, x, y, pdfKitDoc);
 
-	//TODO: line.optimizeInlines();
-	for (var i = 0, l = line.inlines.length; i < l; i++) {
-		var inline = line.inlines[i];
-		var shiftToBaseline = lineHeight - ((inline.font.ascender / 1000) * inline.fontSize) - descent;
+  //TODO: line.optimizeInlines();
+  for (var i = 0, l = line.inlines.length; i < l; i++) {
+    var inline = line.inlines[i];
+    var shiftToBaseline = lineHeight - (inline.font.ascender / 1000) * inline.fontSize - descent;
+    var yDrawLine = y + shiftToBaseline;
+    if (inline._pageNodeRef) {
+      preparePageNodeRefLine(inline._pageNodeRef, inline);
+    }
 
-		if (inline._pageNodeRef) {
-			preparePageNodeRefLine(inline._pageNodeRef, inline);
-		}
+    var options = {
+      lineBreak: false,
+      textWidth: inline.width,
+      characterSpacing: inline.characterSpacing,
+      wordCount: 1,
+      link: inline.link
+    };
 
-		var options = {
-			lineBreak: false,
-			textWidth: inline.width,
-			characterSpacing: inline.characterSpacing,
-			wordCount: 1,
-			link: inline.link
-		};
+    if (inline.fontFeatures) {
+      options.features = inline.fontFeatures;
+    }
 
-		if (inline.fontFeatures) {
-			options.features = inline.fontFeatures;
-		}
+    if (inline.sup) {
+      yDrawLine -= inline.fontSize * 0.75;
+    }
 
-		pdfKitDoc.opacity(inline.opacity || 1);
-		pdfKitDoc.fill(inline.color || 'black');
+    if (inline.sub) {
+      yDrawLine += inline.fontSize * 0.75;
+    }
 
-		pdfKitDoc._font = inline.font;
-		pdfKitDoc.fontSize(inline.fontSize);
-		pdfKitDoc.text(inline.text, x + inline.x, y + shiftToBaseline, options);
+    pdfKitDoc.fill(inline.color || "black");
 
-		if (inline.linkToPage) {
-			var _ref = pdfKitDoc.ref({Type: 'Action', S: 'GoTo', D: [inline.linkToPage, 0, 0]}).end();
-			pdfKitDoc.annotate(x + inline.x, y + shiftToBaseline, inline.width, inline.height, {Subtype: 'Link', Dest: [inline.linkToPage - 1, 'XYZ', null, null, null]});
-		}
+    pdfKitDoc._font = inline.font;
+    pdfKitDoc.fontSize(inline.fontSize);
+    // pdfKitDoc.text(inline.text, x + inline.x, y + shiftToBaseline, options);
+    pdfKitDoc.text(inline.text, x + inline.x, yDrawLine, options);
+    if (inline.linkToPage) {
+      var _ref = pdfKitDoc.ref({ Type: "Action", S: "GoTo", D: [inline.linkToPage, 0, 0] }).end();
+      // pdfKitDoc.annotate(x + inline.x, y + shiftToBaseline, inline.width, inline.height, {Subtype: 'Link', Dest: [inline.linkToPage - 1, 'XYZ', null, null, null]});
+      pdfKitDoc.annotate(x + inline.x, yDrawLine, inline.width, inline.height, {
+        Subtype: "Link",
+        Dest: [inline.linkToPage - 1, "XYZ", null, null, null]
+      });
+    }
+  }
 
-	}
-
-	textDecorator.drawDecorations(line, x, y, pdfKitDoc);
+  textDecorator.drawDecorations(line, x, yDrawLine - shiftToBaseline, pdfKitDoc);
 }
 
 function renderWatermark(page, pdfKitDoc) {
-	var watermark = page.watermark;
+  var watermark = page.watermark;
 
-	pdfKitDoc.fill(watermark.color);
-	pdfKitDoc.opacity(watermark.opacity);
+  pdfKitDoc.fill(watermark.color);
+  pdfKitDoc.opacity(watermark.opacity);
 
-	pdfKitDoc.save();
+  pdfKitDoc.save();
 
-	var angle = Math.atan2(pdfKitDoc.page.height, pdfKitDoc.page.width) * -180 / Math.PI;
-	pdfKitDoc.rotate(angle, {origin: [pdfKitDoc.page.width / 2, pdfKitDoc.page.height / 2]});
+  var angle = (Math.atan2(pdfKitDoc.page.height, pdfKitDoc.page.width) * -180) / Math.PI;
+  pdfKitDoc.rotate(angle, { origin: [pdfKitDoc.page.width / 2, pdfKitDoc.page.height / 2] });
 
-	var x = pdfKitDoc.page.width / 2 - watermark.size.size.width / 2;
-	var y = pdfKitDoc.page.height / 2 - watermark.size.size.height / 4;
+  var x = pdfKitDoc.page.width / 2 - watermark.size.size.width / 2;
+  var y = pdfKitDoc.page.height / 2 - watermark.size.size.height / 4;
 
-	pdfKitDoc._font = watermark.font;
-	pdfKitDoc.fontSize(watermark.size.fontSize);
-	pdfKitDoc.text(watermark.text, x, y, {lineBreak: false});
+  pdfKitDoc._font = watermark.font;
+  pdfKitDoc.fontSize(watermark.size.fontSize);
+  pdfKitDoc.text(watermark.text, x, y, { lineBreak: false });
 
-	pdfKitDoc.restore();
+  pdfKitDoc.restore();
 }
 
 function renderVector(vector, pdfKitDoc) {
-	//TODO: pdf optimization (there's no need to write all properties everytime)
-	pdfKitDoc.lineWidth(vector.lineWidth || 1);
-	if (vector.dash) {
-		pdfKitDoc.dash(vector.dash.length, {space: vector.dash.space || vector.dash.length, phase: vector.dash.phase || 0});
-	} else {
-		pdfKitDoc.undash();
-	}
-	pdfKitDoc.lineJoin(vector.lineJoin || 'miter');
-	pdfKitDoc.lineCap(vector.lineCap || 'butt');
+  //TODO: pdf optimization (there's no need to write all properties everytime)
+  pdfKitDoc.lineWidth(vector.lineWidth || 1);
+  if (vector.dash) {
+    pdfKitDoc.dash(vector.dash.length, {
+      space: vector.dash.space || vector.dash.length,
+      phase: vector.dash.phase || 0
+    });
+  } else {
+    pdfKitDoc.undash();
+  }
+  pdfKitDoc.lineJoin(vector.lineJoin || "miter");
+  pdfKitDoc.lineCap(vector.lineCap || "butt");
 
-	//TODO: clipping
+  //TODO: clipping
 
-	switch (vector.type) {
-		case 'ellipse':
-			pdfKitDoc.ellipse(vector.x, vector.y, vector.r1, vector.r2);
-			break;
-		case 'rect':
-			if (vector.r) {
-				pdfKitDoc.roundedRect(vector.x, vector.y, vector.w, vector.h, vector.r);
-			} else {
-				pdfKitDoc.rect(vector.x, vector.y, vector.w, vector.h);
-			}
+  switch (vector.type) {
+    case "ellipse":
+      pdfKitDoc.ellipse(vector.x, vector.y, vector.r1, vector.r2);
+      break;
+    case "rect":
+      if (vector.r) {
+        pdfKitDoc.roundedRect(vector.x, vector.y, vector.w, vector.h, vector.r);
+      } else {
+        pdfKitDoc.rect(vector.x, vector.y, vector.w, vector.h);
+      }
 
-			if (vector.linearGradient) {
-				var gradient = pdfKitDoc.linearGradient(vector.x, vector.y, vector.x + vector.w, vector.y);
-				var step = 1 / (vector.linearGradient.length - 1);
+      if (vector.linearGradient) {
+        var gradient = pdfKitDoc.linearGradient(vector.x, vector.y, vector.x + vector.w, vector.y);
+        var step = 1 / (vector.linearGradient.length - 1);
 
-				for (var i = 0; i < vector.linearGradient.length; i++) {
-					gradient.stop(i * step, vector.linearGradient[i]);
-				}
+        for (var i = 0; i < vector.linearGradient.length; i++) {
+          gradient.stop(i * step, vector.linearGradient[i]);
+        }
 
-				vector.color = gradient;
-			}
-			break;
-		case 'line':
-			pdfKitDoc.moveTo(vector.x1, vector.y1);
-			pdfKitDoc.lineTo(vector.x2, vector.y2);
-			break;
-		case 'polyline':
-			if (vector.points.length === 0) {
-				break;
-			}
+        vector.color = gradient;
+      }
+      break;
+    case "line":
+      pdfKitDoc.moveTo(vector.x1, vector.y1);
+      pdfKitDoc.lineTo(vector.x2, vector.y2);
+      break;
+    case "polyline":
+      if (vector.points.length === 0) {
+        break;
+      }
 
-			pdfKitDoc.moveTo(vector.points[0].x, vector.points[0].y);
-			for (var i = 1, l = vector.points.length; i < l; i++) {
-				pdfKitDoc.lineTo(vector.points[i].x, vector.points[i].y);
-			}
+      pdfKitDoc.moveTo(vector.points[0].x, vector.points[0].y);
+      for (var i = 1, l = vector.points.length; i < l; i++) {
+        pdfKitDoc.lineTo(vector.points[i].x, vector.points[i].y);
+      }
 
-			if (vector.points.length > 1) {
-				var p1 = vector.points[0];
-				var pn = vector.points[vector.points.length - 1];
+      if (vector.points.length > 1) {
+        var p1 = vector.points[0];
+        var pn = vector.points[vector.points.length - 1];
 
-				if (vector.closePath || p1.x === pn.x && p1.y === pn.y) {
-					pdfKitDoc.closePath();
-				}
-			}
-			break;
-		case 'path':
-			pdfKitDoc.path(vector.d);
-			break;
-	}
+        if (vector.closePath || (p1.x === pn.x && p1.y === pn.y)) {
+          pdfKitDoc.closePath();
+        }
+      }
+      break;
+    case "path":
+      pdfKitDoc.path(vector.d);
+      break;
+  }
 
-	if (vector.color && vector.lineColor) {
-		pdfKitDoc.fillColor(vector.color, vector.fillOpacity || 1);
-		pdfKitDoc.strokeColor(vector.lineColor, vector.strokeOpacity || 1);
-		pdfKitDoc.fillAndStroke();
-	} else if (vector.color) {
-		pdfKitDoc.fillColor(vector.color, vector.fillOpacity || 1);
-		pdfKitDoc.fill();
-	} else {
-		pdfKitDoc.strokeColor(vector.lineColor || 'black', vector.strokeOpacity || 1);
-		pdfKitDoc.stroke();
-	}
+  if (vector.color && vector.lineColor) {
+    pdfKitDoc.fillColor(vector.color, vector.fillOpacity || 1);
+    pdfKitDoc.strokeColor(vector.lineColor, vector.strokeOpacity || 1);
+    pdfKitDoc.fillAndStroke();
+  } else if (vector.color) {
+    pdfKitDoc.fillColor(vector.color, vector.fillOpacity || 1);
+    pdfKitDoc.fill();
+  } else {
+    pdfKitDoc.strokeColor(vector.lineColor || "black", vector.strokeOpacity || 1);
+    pdfKitDoc.stroke();
+  }
 }
 
 function renderImage(image, x, y, pdfKitDoc) {
-	pdfKitDoc.opacity(image.opacity || 1);
-	pdfKitDoc.image(image.image, image.x, image.y, {width: image._width, height: image._height});
-	if (image.link) {
-		pdfKitDoc.link(image.x, image.y, image._width, image._height, image.link);
-	}
+  pdfKitDoc.image(image.image, image.x, image.y, { width: image._width, height: image._height });
+  if (image.link) {
+    pdfKitDoc.link(image.x, image.y, image._width, image._height, image.link);
+  }
 }
 
 function beginClip(rect, pdfKitDoc) {
-	pdfKitDoc.save();
-	pdfKitDoc.addContent('' + rect.x + ' ' + rect.y + ' ' + rect.width + ' ' + rect.height + ' re');
-	pdfKitDoc.clip();
+  pdfKitDoc.save();
+  pdfKitDoc.addContent("" + rect.x + " " + rect.y + " " + rect.width + " " + rect.height + " re");
+  pdfKitDoc.clip();
 }
 
 function endClip(pdfKitDoc) {
-	pdfKitDoc.restore();
+  pdfKitDoc.restore();
 }
 
 module.exports = PdfPrinter;
@@ -14274,7 +14319,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 133 */
@@ -14467,7 +14512,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
 
 /***/ }),
 /* 134 */
@@ -14541,7 +14586,7 @@ function config (name) {
   return String(val).toLowerCase() === 'true';
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
 /* 135 */
@@ -40566,7 +40611,7 @@ module.exports = __webpack_require__(2).Symbol;
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(11);
 var has = __webpack_require__(18);
-var DESCRIPTORS = __webpack_require__(6);
+var DESCRIPTORS = __webpack_require__(5);
 var $export = __webpack_require__(3);
 var redefine = __webpack_require__(94);
 var META = __webpack_require__(42).KEY;
@@ -40587,7 +40632,7 @@ var createDesc = __webpack_require__(27);
 var _create = __webpack_require__(38);
 var gOPNExt = __webpack_require__(209);
 var $GOPD = __webpack_require__(56);
-var $DP = __webpack_require__(7);
+var $DP = __webpack_require__(6);
 var $keys = __webpack_require__(29);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
@@ -40875,7 +40920,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 var $export = __webpack_require__(3);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperty: __webpack_require__(7).f });
+$export($export.S + $export.F * !__webpack_require__(5), 'Object', { defineProperty: __webpack_require__(6).f });
 
 
 /***/ }),
@@ -40932,8 +40977,8 @@ module.exports = __webpack_require__(108)(MAP, function (get) {
 
 var global = __webpack_require__(11);
 var core = __webpack_require__(2);
-var dP = __webpack_require__(7);
-var DESCRIPTORS = __webpack_require__(6);
+var dP = __webpack_require__(6);
+var DESCRIPTORS = __webpack_require__(5);
 var SPECIES = __webpack_require__(4)('species');
 
 module.exports = function (KEY) {
@@ -41233,7 +41278,7 @@ module.exports = function defineProperties(T, D) {
 
 var $export = __webpack_require__(3);
 // 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
-$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperties: __webpack_require__(95) });
+$export($export.S + $export.F * !__webpack_require__(5), 'Object', { defineProperties: __webpack_require__(95) });
 
 
 /***/ }),
@@ -41550,7 +41595,7 @@ $export($export.S + $export.F * !__webpack_require__(251)(function (iter) { Arra
 
 "use strict";
 
-var $defineProperty = __webpack_require__(7);
+var $defineProperty = __webpack_require__(6);
 var createDesc = __webpack_require__(27);
 
 module.exports = function (object, index, value) {
@@ -48149,12 +48194,6 @@ DocMeasure.prototype.measureTable = function (node) {
 			vLineColor: function (i, node) {
 				return 'black';
 			},
-			hLineStyle: function (i, node) {
-				return null;
-			},
-			vLineStyle: function (i, node) {
-				return null;
-			},
 			paddingLeft: function (i, node) {
 				return 4;
 			},
@@ -49213,7 +49252,7 @@ PageElementWriter.prototype.moveToNextPage = function (pageOrientation) {
 	this.writer.tracker.emit('pageChanged', {
 		prevPage: nextPage.prevPage,
 		prevY: nextPage.prevY,
-		y: this.writer.context.y
+		y: nextPage.y
 	});
 };
 
@@ -49769,12 +49808,6 @@ TableProcessor.prototype.beginRow = function (rowIndex, writer) {
 TableProcessor.prototype.drawHorizontalLine = function (lineIndex, writer, overrideY) {
 	var lineWidth = this.layout.hLineWidth(lineIndex, this.tableNode);
 	if (lineWidth) {
-		var style = this.layout.hLineStyle(lineIndex, this.tableNode);
-		var dash;
-		if (style && style.dash) {
-			dash = style.dash;
-		}
-
 		var offset = lineWidth / 2;
 		var currentLine = null;
 		var body = this.tableNode.table.body;
@@ -49822,7 +49855,6 @@ TableProcessor.prototype.drawHorizontalLine = function (lineIndex, writer, overr
 						y1: y,
 						y2: y,
 						lineWidth: lineWidth,
-						dash: dash,
 						lineColor: isFunction(this.layout.hLineColor) ? this.layout.hLineColor(lineIndex, this.tableNode) : this.layout.hLineColor
 					}, false, overrideY);
 					currentLine = null;
@@ -49839,11 +49871,6 @@ TableProcessor.prototype.drawVerticalLine = function (x, y0, y1, vLineIndex, wri
 	if (width === 0) {
 		return;
 	}
-	var style = this.layout.vLineStyle(vLineIndex, this.tableNode);
-	var dash;
-	if (style && style.dash) {
-		dash = style.dash;
-	}
 	writer.addVector({
 		type: 'line',
 		x1: x + width / 2,
@@ -49851,7 +49878,6 @@ TableProcessor.prototype.drawVerticalLine = function (x, y0, y1, vLineIndex, wri
 		y1: y0,
 		y2: y1,
 		lineWidth: width,
-		dash: dash,
 		lineColor: isFunction(this.layout.vLineColor) ? this.layout.vLineColor(vLineIndex, this.tableNode) : this.layout.vLineColor
 	}, false, true);
 };
@@ -49859,6 +49885,7 @@ TableProcessor.prototype.drawVerticalLine = function (x, y0, y1, vLineIndex, wri
 TableProcessor.prototype.endTable = function (writer) {
 	if (this.cleanUpRepeatables) {
 		writer.popFromRepeatables();
+		this.headerRepeatableHeight = null;
 	}
 };
 
@@ -49890,6 +49917,10 @@ TableProcessor.prototype.endRow = function (rowIndex, writer, pageBreaks) {
 			ys[ys.length - 1].y1 = pageBreak.prevY;
 
 			ys.push({y0: pageBreak.y, page: pageBreak.prevPage + 1});
+
+			if (this.headerRepeatableHeight) {
+				ys[ys.length - 1].y0 += this.headerRepeatableHeight;
+			}
 		}
 	}
 
@@ -50006,6 +50037,7 @@ TableProcessor.prototype.endRow = function (rowIndex, writer, pageBreaks) {
 	}
 
 	if (this.headerRepeatable && (rowIndex === (this.rowsWithoutPageBreak - 1) || rowIndex === this.tableNode.table.body.length - 1)) {
+		this.headerRepeatableHeight = this.headerRepeatable.height;
 		writer.commitUnbreakableBlock();
 		writer.pushToRepeatables(this.headerRepeatable);
 		this.cleanUpRepeatables = true;
@@ -50312,13 +50344,214 @@ module.exports = {
 /* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if("undefined"!=typeof exports)b();else{b(),a.FileSaver={exports:{}}.exports}})(this,function(){"use strict";function b(a,b){return"undefined"==typeof b?b={autoBom:!1}:"object"!=typeof b&&(console.warn("Depricated: Expected third argument to be a object"),b={autoBom:!b}),b.autoBom&&/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(a.type)?new Blob(["\uFEFF",a],{type:a.type}):a}function c(b,c,d){var e=new XMLHttpRequest;e.open("GET",b),e.responseType="blob",e.onload=function(){a(e.response,c,d)},e.onerror=function(){console.error("could not download file")},e.send()}function d(a){var b=new XMLHttpRequest;return b.open("HEAD",a,!1),b.send(),200<=b.status&&299>=b.status}function e(a){try{a.dispatchEvent(new MouseEvent("click"))}catch(c){var b=document.createEvent("MouseEvents");b.initMouseEvent("click",!0,!0,window,0,0,0,80,20,!1,!1,!1,!1,0,null),a.dispatchEvent(b)}}var f="object"==typeof window&&window.window===window?window:"object"==typeof self&&self.self===self?self:"object"==typeof global&&global.global===global?global:void 0,a=f.saveAs||"object"!=typeof window||window!==f?function(){}:"download"in HTMLAnchorElement.prototype?function(b,g,h){var i=f.URL||f.webkitURL,j=document.createElement("a");g=g||b.name||"download",j.download=g,j.rel="noopener","string"==typeof b?(j.href=b,j.origin===location.origin?e(j):d(j.href)?c(b,g,h):e(j,j.target="_blank")):(j.href=i.createObjectURL(b),setTimeout(function(){i.revokeObjectURL(j.href)},4E4),setTimeout(function(){e(j)},0))}:"msSaveOrOpenBlob"in navigator?function(f,g,h){if(g=g||f.name||"download","string"!=typeof f)navigator.msSaveOrOpenBlob(b(f,h),g);else if(d(f))c(f,g,h);else{var i=document.createElement("a");i.href=f,i.target="_blank",setTimeout(function(){e(i)})}}:function(a,b,d,e){if(e=e||open("","_blank"),e&&(e.document.title=e.document.body.innerText="downloading..."),"string"==typeof a)return c(a,b,d);var g="application/octet-stream"===a.type,h=/constructor/i.test(f.HTMLElement)||f.safari,i=/CriOS\/[\d]+/.test(navigator.userAgent);if((i||g&&h)&&"object"==typeof FileReader){var j=new FileReader;j.onloadend=function(){var a=j.result;a=i?a:a.replace(/^data:[^;]*;/,"data:attachment/file;"),e?e.location.href=a:location=a,e=null},j.readAsDataURL(a)}else{var k=f.URL||f.webkitURL,l=k.createObjectURL(a);e?e.location=l:location.href=l,e=null,setTimeout(function(){k.revokeObjectURL(l)},4E4)}};f.saveAs=a.saveAs=a,"undefined"!=typeof module&&(module.exports=a)});
+var __WEBPACK_AMD_DEFINE_RESULT__;/* FileSaver.js
+ * A saveAs() FileSaver implementation.
+ * 1.3.2
+ * 2016-06-16 18:25:19
+ *
+ * By Eli Grey, http://eligrey.com
+ * License: MIT
+ *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+ */
 
-//# sourceMappingURL=FileSaver.min.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/*global self */
+/*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
+
+/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+
+var saveAs = saveAs || (function(view) {
+	"use strict";
+	// IE <10 is explicitly unsupported
+	if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+		return;
+	}
+	var
+		  doc = view.document
+		  // only get URL when necessary in case Blob.js hasn't overridden it yet
+		, get_URL = function() {
+			return view.URL || view.webkitURL || view;
+		}
+		, save_link = doc ? doc.createElementNS("http://www.w3.org/1999/xhtml", "a") : []
+		, can_use_save_link = "download" in save_link
+		, click = function(node) {
+			var event = new MouseEvent("click");
+			node.dispatchEvent(event);
+		}
+		, is_safari = /constructor/i.test(view.HTMLElement) || view.safari
+		, is_chrome_ios =/CriOS\/[\d]+/.test(navigator.userAgent)
+		, throw_outside = function(ex) {
+			(view.setImmediate || view.setTimeout)(function() {
+				throw ex;
+			}, 0);
+		}
+		, force_saveable_type = "application/octet-stream"
+		// the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+		, arbitrary_revoke_timeout = 1000 * 40 // in ms
+		, revoke = function(file) {
+			var revoker = function() {
+				if (typeof file === "string") { // file is an object URL
+					get_URL().revokeObjectURL(file);
+				} else { // file is a File
+					file.remove();
+				}
+			};
+			setTimeout(revoker, arbitrary_revoke_timeout);
+		}
+		, dispatch = function(filesaver, event_types, event) {
+			event_types = [].concat(event_types);
+			var i = event_types.length;
+			while (i--) {
+				var listener = filesaver["on" + event_types[i]];
+				if (typeof listener === "function") {
+					try {
+						listener.call(filesaver, event || filesaver);
+					} catch (ex) {
+						throw_outside(ex);
+					}
+				}
+			}
+		}
+		, auto_bom = function(blob) {
+			// prepend BOM for UTF-8 XML and text/* types (including HTML)
+			// note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+			if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+				return new Blob([String.fromCharCode(0xFEFF), blob], {type: blob.type});
+			}
+			return blob;
+		}
+		, FileSaver = function(blob, name, no_auto_bom) {
+			if (!no_auto_bom) {
+				blob = auto_bom(blob);
+			}
+			// First try a.download, then web filesystem, then object URLs
+			var
+				  filesaver = this
+				, type = blob.type
+				, force = type === force_saveable_type
+				, object_url
+				, dispatch_all = function() {
+					dispatch(filesaver, "writestart progress write writeend".split(" "));
+				}
+				// on any filesys errors revert to saving with object URLs
+				, fs_error = function() {
+					if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
+						// Safari doesn't allow downloading of blob urls
+						var reader = new FileReader();
+						reader.onloadend = function() {
+							var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+							var popup = view.open(url, '_blank');
+							if(!popup) view.location.href = url;
+							url=undefined; // release reference before dispatching
+							filesaver.readyState = filesaver.DONE;
+							dispatch_all();
+						};
+						reader.readAsDataURL(blob);
+						filesaver.readyState = filesaver.INIT;
+						return;
+					}
+					// don't create more object URLs than needed
+					if (!object_url) {
+						object_url = get_URL().createObjectURL(blob);
+					}
+					if (force) {
+						view.location.href = object_url;
+					} else {
+						var opened = view.open(object_url, "_blank");
+						if (!opened) {
+							// Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+							view.location.href = object_url;
+						}
+					}
+					filesaver.readyState = filesaver.DONE;
+					dispatch_all();
+					revoke(object_url);
+				}
+			;
+			filesaver.readyState = filesaver.INIT;
+
+			if (can_use_save_link) {
+				object_url = get_URL().createObjectURL(blob);
+				setTimeout(function() {
+					save_link.href = object_url;
+					save_link.download = name;
+					click(save_link);
+					dispatch_all();
+					revoke(object_url);
+					filesaver.readyState = filesaver.DONE;
+				});
+				return;
+			}
+
+			fs_error();
+		}
+		, FS_proto = FileSaver.prototype
+		, saveAs = function(blob, name, no_auto_bom) {
+			return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
+		}
+	;
+	// IE 10+ (native saveAs)
+	if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+		return function(blob, name, no_auto_bom) {
+			name = name || blob.name || "download";
+
+			if (!no_auto_bom) {
+				blob = auto_bom(blob);
+			}
+			return navigator.msSaveOrOpenBlob(blob, name);
+		};
+	}
+
+	FS_proto.abort = function(){};
+	FS_proto.readyState = FS_proto.INIT = 0;
+	FS_proto.WRITING = 1;
+	FS_proto.DONE = 2;
+
+	FS_proto.error =
+	FS_proto.onwritestart =
+	FS_proto.onprogress =
+	FS_proto.onwrite =
+	FS_proto.onabort =
+	FS_proto.onerror =
+	FS_proto.onwriteend =
+		null;
+
+	return saveAs;
+}(
+	   typeof self !== "undefined" && self
+	|| typeof window !== "undefined" && window
+	|| this.content
+));
+// `self` is undefined in Firefox for Android content script context
+// while `this` is nsIContentFrameMessageManager
+// with an attribute `content` that corresponds to the window
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports.saveAs = saveAs;
+} else if (("function" !== "undefined" && __webpack_require__(308) !== null) && (__webpack_require__(309) !== null)) {
+  !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
+    return saveAs;
+  }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+}
+
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports) {
+
+module.exports = function() {
+	throw new Error("define cannot be used indirect");
+};
+
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
+
+/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ })
 /******/ ]);
